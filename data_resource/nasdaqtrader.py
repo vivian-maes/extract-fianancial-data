@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 
+from configuration import application
 from data_manipulation.data_convertion import pipe_to_tab_delimited
 from data_manipulation.data_loader import load_file_from_ftp
 from data_manipulation.data_saver import save_raw
@@ -10,13 +11,14 @@ def get_stocklists():
     server = "ftp.nasdaqtrader.com"
     source_path = "symboldirectory/{}.txt"
     destination_path = "data/symbol_list/{}.csv"
+    data_base_path = application.load()["data_base_path"]
 
     for file in ["nasdaqlisted", "otherlisted"]:
         destination = destination_path.format(file)
         if os.path.exists(destination):
             os.remove(destination)
 
-        source = source_path.format(file)
+        source = data_base_path.format(source_path.format(file))
         data = load_file_from_ftp(server, 21, source)
 
         save_raw(pipe_to_tab_delimited(data), destination)
