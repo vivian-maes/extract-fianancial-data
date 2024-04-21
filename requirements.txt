@@ -1,0 +1,5 @@
+appwrite
+pandas
+pandas_market_calendars
+yfinance
+tqdm
