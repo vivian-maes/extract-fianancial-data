@@ -1,7 +1,3 @@
-Pour rendre votre README plus professionnel et inclusif d'une section de licence et de remerciements, voici une version améliorée en anglais et en français :
-
----
-
 # Extraction and Quality Processing of Data for AI Use
 
 ## Inspired By
