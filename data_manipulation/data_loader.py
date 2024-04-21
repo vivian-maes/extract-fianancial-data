@@ -1,4 +1,6 @@
 import ftplib
+
+import json
 import os
 from io import BytesIO
 
@@ -61,3 +63,20 @@ def list_files_without_extensions(directory_path):
     ]
 
     return files_without_extensions
+
+
+def load_json(file_path):
+    """
+    Loads the content of a JSON file and returns it.
+
+    Args:
+        file_path (str): The path to the JSON file to be read.
+
+    Returns:
+        dict or list: The content of the JSON file, which can be either a dictionary
+                      or a list, depending on the JSON structure.
+    """
+    with open(file_path, "r", encoding="utf-8") as file:
+        data = json.load(file)
+
+    return data
