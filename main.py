@@ -23,9 +23,9 @@ os.system("cls" if os.name == "nt" else "clear")
 #
 # Export data from yahoo
 #
-##--get_stocklists()
-##--get_symbol_resume(read_symbols())
-##--get_historical()
+get_stocklists()
+get_symbol_resume(read_symbols())
+get_historical()
 
 #
 # Prepare data_set
