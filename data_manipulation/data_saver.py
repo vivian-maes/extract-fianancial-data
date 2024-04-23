@@ -27,6 +27,18 @@ def save_panda_csv(data, filename):
     data.to_csv(filename)
 
 
+def save_panda_parquet(data, filename):
+    """
+    Sauvegarde les données d'un objet panda dans un fichier parquet.
+    Crée les répertoires parents si nécessaire.
+
+    :param data: Fichier panda.
+    :param filename: Nom du fichier où sauvegarder les données.
+    """
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    data.to_parquet(filename, compression="snappy")
+
+
 def save_to_json(data, filename):
     """
     Sauvegarde des données dans un fichier JSON.

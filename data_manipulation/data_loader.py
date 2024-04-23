@@ -1,5 +1,6 @@
 import ftplib
 
+import pandas as pd
 import json
 import os
 from io import BytesIO
@@ -80,3 +81,23 @@ def load_json(file_path):
         data = json.load(file)
 
     return data
+
+
+def load_csv(file_path, date_fields=[]):
+    """
+    Loads the content of a CSV file and returns it.
+    Convert date field if needed
+
+    Args:
+        file_path (str): The path to the JSON file to be read.
+        date_fields(lsit of str): list of field in date format
+
+    Returns:
+        panda document..
+    """
+    df = pd.read_csv(file_path, parse_dates=date_fields)
+
+    for date_field in date_fields:
+        df[date_field] = pd.to_datetime(df[date_field], utc=True)
+
+    return df
