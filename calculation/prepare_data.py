@@ -1,4 +1,5 @@
 import sys
+import os
 from tqdm import tqdm
 from configuration import application
 from data_manipulation.data_loader import (
@@ -164,4 +165,73 @@ def compute_anual_value(data_set):
         "start_year": low_global_year,
         "end_year": hight_global_year,
     }
+    return data_set
+
+
+def compute_divident(data_set):
+    symbol_path = "raw/divident/{}.csv"
+    data_base_path = application.load()["data_base_path"]
+
+    start_year = data_set["config"]["date_quote"]["start_year"]
+    end_year = data_set["config"]["date_quote"]["end_year"]
+
+    actions_dividents = []
+
+    with tqdm(
+        total=len(data_set["actions"]), desc="Compute dividents", file=sys.stdout
+    ) as pbar:
+
+        for action in data_set["actions"]:
+            dividents = []
+            currrent_divident = 0
+            current_year = None
+            break_year = None
+
+            pbar.set_description(f"Divid for  {action.ljust(6)}")
+
+            file_path = data_base_path.format(symbol_path.format(action))
+            if os.path.exists(file_path):
+                try:
+                    hist_dividents = load_csv(file_path, date_fields=["Date"])
+
+                    if hist_dividents.empty:
+                        delta = end_year - start_year
+                        dividents = [0.0 for _ in range(delta)]
+                    else:
+
+                        for _, hist in hist_dividents.iterrows():
+                            current_year = hist["Date"].year
+                            if current_year != break_year:
+                                if break_year == None:
+                                    missing_year = current_year - start_year - 1
+                                    if missing_year > 0:
+                                        dividents += [0.0 for _ in range(missing_year)]
+                                else:
+                                    missing_year = current_year - break_year - 1
+                                    if missing_year > 0:
+                                        dividents += [0.0 for _ in range(missing_year)]
+                                    dividents.append(currrent_divident)
+
+                                break_year = current_year
+                                currrent_divident = hist["Dividends"]
+
+                            else:
+                                currrent_divident += hist["Dividends"]
+
+                        # store last year
+                        dividents.append(currrent_divident)
+                        missing_year = end_year - current_year
+                        if missing_year > 0:
+                            dividents += [0.0 for _ in range(missing_year)]
+                except Exception as _:
+                    delta = end_year - start_year
+                    dividents = [0.0 for _ in range(delta)]
+            else:
+                delta = end_year - start_year
+                dividents = [0.0 for _ in range(delta)]
+
+            actions_dividents.append(dividents)
+            pbar.update(1)
+
+    data_set["dividents"] = actions_dividents
     return data_set
