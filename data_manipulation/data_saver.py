@@ -1,5 +1,6 @@
 # data_saver.py
 import pandas as pd
+import pickle
 import json
 import os
 
@@ -51,6 +52,20 @@ def save_to_json(data, filename):
 
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
+
+
+def save_to_pickle(data, filename):
+    """
+    Sauvegarde des données dans un pickle.
+    Crée les répertoires parents si nécessaire.
+
+    :param data: Les données à sauvegarder vu comme une suite de binaire.
+    :param filename: Le chemin du fichier où les données seront sauvegardées.
+    """
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+    with open(filename, "wb") as file:
+        pickle.dump(data, file)
 
 
 def save_raw(data, filename):
