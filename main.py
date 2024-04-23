@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 from calculation.prepare_data import (
     compute_anual_value,
-    compute_divident,
+    compute_dividend,
     compute_sector,
     create_basic_structure,
 )
@@ -33,7 +33,7 @@ os.system("cls" if os.name == "nt" else "clear")
 data_set = create_basic_structure()
 data_set = compute_sector(data_set)
 data_set = compute_anual_value(data_set)
-data_set = compute_divident(data_set)
+data_set = compute_dividend(data_set)
 #
 save_to_json(data_set, application.load()["data_base_path"].format("data_set.json"))
 save_to_pickle(data_set, application.load()["data_base_path"].format("data_set.pkl"))

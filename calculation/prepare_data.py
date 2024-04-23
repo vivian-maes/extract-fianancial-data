@@ -8,6 +8,16 @@ from data_manipulation.data_loader import (
     load_json,
 )
 
+"""
+Computes the sector information for the given data set.
+
+Args:
+    data_set (dict): A dictionary containing the actions and configuration.
+
+Returns:
+    dict: The updated data set with the sector information added.
+"""
+
 
 def create_basic_structure():
     symbol_path = "raw/symbol"
@@ -15,6 +25,17 @@ def create_basic_structure():
     list_symb = list_files_without_extensions(data_base_path.format(symbol_path))
     list_symb.sort()
     return {"actions": list_symb, "config": {}}
+
+
+"""
+Computes the sector information for each action in the given data set.
+
+Args:
+    data_set (dict): A dictionary containing the actions and other data.
+
+Returns:
+    dict: The updated data_set dictionary with the sector information added.
+"""
 
 
 def compute_sector(data_set):
@@ -168,22 +189,33 @@ def compute_anual_value(data_set):
     return data_set
 
 
-def compute_divident(data_set):
-    symbol_path = "raw/divident/{}.csv"
+"""
+Computes the dividends for the actions in the given data set.
+
+Args:
+    data_set (dict): A dictionary containing the data set information, including the actions and configuration.
+
+Returns:
+    dict: The updated data set with the computed dividends.
+"""
+
+
+def compute_dividend(data_set):
+    symbol_path = "raw/dividend/{}.csv"
     data_base_path = application.load()["data_base_path"]
 
     start_year = data_set["config"]["date_quote"]["start_year"]
     end_year = data_set["config"]["date_quote"]["end_year"]
 
-    actions_dividents = []
+    actions_dividends = []
 
     with tqdm(
-        total=len(data_set["actions"]), desc="Compute dividents", file=sys.stdout
+        total=len(data_set["actions"]), desc="Compute dividends", file=sys.stdout
     ) as pbar:
 
         for action in data_set["actions"]:
-            dividents = []
-            currrent_divident = 0
+            dividends = []
+            currrent_dividend = 0
             current_year = None
             break_year = None
 
@@ -192,46 +224,46 @@ def compute_divident(data_set):
             file_path = data_base_path.format(symbol_path.format(action))
             if os.path.exists(file_path):
                 try:
-                    hist_dividents = load_csv(file_path, date_fields=["Date"])
+                    hist_dividends = load_csv(file_path, date_fields=["Date"])
 
-                    if hist_dividents.empty:
+                    if hist_dividends.empty:
                         delta = end_year - start_year
-                        dividents = [0.0 for _ in range(delta)]
+                        dividends = [0.0 for _ in range(delta)]
                     else:
 
-                        for _, hist in hist_dividents.iterrows():
+                        for _, hist in hist_dividends.iterrows():
                             current_year = hist["Date"].year
                             if current_year != break_year:
                                 if break_year == None:
                                     missing_year = current_year - start_year - 1
                                     if missing_year > 0:
-                                        dividents += [0.0 for _ in range(missing_year)]
+                                        dividends += [0.0 for _ in range(missing_year)]
                                 else:
                                     missing_year = current_year - break_year - 1
                                     if missing_year > 0:
-                                        dividents += [0.0 for _ in range(missing_year)]
-                                    dividents.append(currrent_divident)
+                                        dividends += [0.0 for _ in range(missing_year)]
+                                    dividends.append(currrent_dividend)
 
                                 break_year = current_year
-                                currrent_divident = hist["Dividends"]
+                                currrent_dividend = hist["Dividends"]
 
                             else:
-                                currrent_divident += hist["Dividends"]
+                                currrent_dividend += hist["Dividends"]
 
                         # store last year
-                        dividents.append(currrent_divident)
+                        dividends.append(currrent_dividend)
                         missing_year = end_year - current_year
                         if missing_year > 0:
-                            dividents += [0.0 for _ in range(missing_year)]
+                            dividends += [0.0 for _ in range(missing_year)]
                 except Exception as _:
                     delta = end_year - start_year
-                    dividents = [0.0 for _ in range(delta)]
+                    dividends = [0.0 for _ in range(delta)]
             else:
                 delta = end_year - start_year
-                dividents = [0.0 for _ in range(delta)]
+                dividends = [0.0 for _ in range(delta)]
 
-            actions_dividents.append(dividents)
+            actions_dividends.append(dividends)
             pbar.update(1)
 
-    data_set["dividents"] = actions_dividents
+    data_set["dividends"] = actions_dividends
     return data_set

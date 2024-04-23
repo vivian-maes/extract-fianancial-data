@@ -41,7 +41,7 @@ def get_symbol_resume(symbols):
 def get_historical():
     symbol_list_path = "data/symbol/"
     history_path = "data/history/{}.csv"
-    divident_path = "data/divident/{}.csv"
+    dividend_path = "data/dividend/{}.csv"
     data_base_path = application.load()["data_base_path"]
 
     symbols = list_files_without_extensions(symbol_list_path)
@@ -55,7 +55,7 @@ def get_historical():
 
                 save_panda_csv(hist, data_base_path.format(history_path.format(symbol)))
                 save_panda_csv(
-                    dividends, data_base_path.format(divident_path.format(symbol))
+                    dividends, data_base_path.format(dividend_path.format(symbol))
                 )
             except Exception as e:
                 logging.error(f"Error for {symbol}: {e}", exc_info=True)
