@@ -20,7 +20,7 @@ logging.basicConfig(
 
 def get_symbol_resume(symbols):
     # Boucler sur chaque symbole
-    destination_path = "data/symbol/{}.json"
+    destination_path = "raw/symbol/{}.json"
     data_base_path = application.load()["data_base_path"]
 
     with tqdm(total=len(symbols), desc="Read symbols resume", file=sys.stdout) as pbar:
@@ -39,9 +39,9 @@ def get_symbol_resume(symbols):
 
 
 def get_historical():
-    symbol_list_path = "data/symbol/"
-    history_path = "data/history/{}.csv"
-    dividend_path = "data/dividend/{}.csv"
+    symbol_list_path = "raw/symbol/"
+    history_path = "raw/history/{}.csv"
+    dividend_path = "raw/dividend/{}.csv"
     data_base_path = application.load()["data_base_path"]
 
     symbols = list_files_without_extensions(symbol_list_path)

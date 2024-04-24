@@ -16,6 +16,7 @@ from data_manipulation.data_saver import (
     save_to_pickle,
 )
 from data_resource.nasdaqtrader import get_stocklists, read_symbols
+from data_resource.worldbank import fetch_indicators, fetch_regions
 from data_resource.yahoo import get_historical, get_symbol_resume
 
 os.system("cls" if os.name == "nt" else "clear")
@@ -23,21 +24,23 @@ os.system("cls" if os.name == "nt" else "clear")
 #
 # Export data from yahoo
 #
-get_stocklists()
-get_symbol_resume(read_symbols())
-get_historical()
+##--get_stocklists()
+##--get_symbol_resume(read_symbols())
+##--get_historical()
 
 #
 # Prepare data_set
 #
-data_set = create_basic_structure()
-data_set = compute_sector(data_set)
-data_set = compute_anual_value(data_set)
-data_set = compute_dividend(data_set)
+##--data_set = create_basic_structure()
+##--data_set = compute_sector(data_set)
+##--data_set = compute_anual_value(data_set)
+##--data_set = compute_dividend(data_set)
 #
-save_to_json(data_set, application.load()["data_base_path"].format("data_set.json"))
-save_to_pickle(data_set, application.load()["data_base_path"].format("data_set.pkl"))
+# --save_to_json(data_set, application.load()["data_base_path"].format("data_set.json"))
+# --save_to_pickle(data_set, application.load()["data_base_path"].format("data_set.pkl"))
 
+##--fetch_indicators()
+##--fetch_regions()
 
 ##--actions_data = {
 ##--    'action': ['Action A', 'Action B', 'Action C', 'Action D'],

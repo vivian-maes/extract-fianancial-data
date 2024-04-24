@@ -1,3 +1,5 @@
 {
   "data_base_path": "/Users/vivianmaes/Development/Crypto laboratory/Oracle IA/extracted-data/{}"
+  "regions": ["WLD"],
+  "indicator": ["CPTOTSAXMZGY", "FP.CPI.TOTL.ZG", "FP.FPI.TOTL.ZG", "SPI.D5.2.4.CPIBY"]
 }

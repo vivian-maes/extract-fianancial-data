@@ -10,7 +10,7 @@ from data_manipulation.data_saver import save_raw
 def get_stocklists():
     server = "ftp.nasdaqtrader.com"
     source_path = "symboldirectory/{}.txt"
-    destination_path = "data/symbol_list/{}.csv"
+    destination_path = "raw/symbol_list/{}.csv"
     data_base_path = application.load()["data_base_path"]
 
     for file in ["nasdaqlisted", "otherlisted"]:
@@ -28,7 +28,7 @@ def read_symbols():
 
     data = []
 
-    destination_path = "data/symbol_list/{}.csv"
+    destination_path = "raw/symbol_list/{}.csv"
 
     # "nasdaqlisted",
     for file in ["otherlisted"]:
