@@ -1,4 +1,5 @@
 import ftplib
+import pickle
 
 import pandas as pd
 import json
@@ -101,3 +102,14 @@ def load_csv(file_path, date_fields=[]):
         df[date_field] = pd.to_datetime(df[date_field], utc=True)
 
     return df
+
+
+def load_pickle(filename):
+    """
+    Load des données dans un pickle.
+
+    :param filename: Le chemin du fichier où les données sont stokée.
+    """
+
+    with open(filename, "rb") as file:
+        return pickle.load(file)
