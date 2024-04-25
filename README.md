@@ -42,9 +42,12 @@ python src/test.py
 deactivate
 ```
 
-## License
+## Licence
 
-This project is licensed under the MIT License. This license permits commercial use, modification, distribution, and private use. It is an effort to encourage open development while providing credit to the original creators.
+Ce projet est mis à disposition sous la Licence Creative Commons Attribution - Non Commercial - Partage dans les Mêmes Conditions 4.0 International (CC BY-NC-SA 4.0). Pour voir une copie de cette licence, visitez [http://creativecommons.org/licenses/by-nc-sa/4.0/](http://creativecommons.org/licenses/by-nc-sa/4.0/) ou envoyez une lettre à Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+Pour plus de détails sur les conditions d'utilisation, veuillez consulter le fichier [LICENCE](LICENCE.md) inclus dans ce dépôt.
+
 
 ## Acknowledgements
 
