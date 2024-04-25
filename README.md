@@ -44,8 +44,6 @@ deactivate
 
 ## Licence
 
-![Logo CC BY-NC-SA](https://path_to_your_repository/logo-cc-by-nc-sa.png)
-
 Ce projet est mis à disposition sous la Licence Creative Commons Attribution - Non Commercial - Partage dans les Mêmes Conditions 4.0 International (CC BY-NC-SA 4.0). Pour voir une copie de cette licence, visitez [http://creativecommons.org/licenses/by-nc-sa/4.0/](http://creativecommons.org/licenses/by-nc-sa/4.0/) ou envoyez une lettre à Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 Pour plus de détails sur les conditions d'utilisation, veuillez consulter le fichier [LICENCE](LICENCE.md) inclus dans ce dépôt.
