@@ -3,7 +3,7 @@ import os
 from tqdm import tqdm
 
 
-from calculation.prepare_data import (
+from data_extraction.prepare_data import (
     compute_anual_value,
     compute_dividend,
     compute_sector,
